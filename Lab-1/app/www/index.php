@@ -1,4 +1,3 @@
-
 <html>
     <head>
         <title>Aplicaciones de Internet</title>
@@ -44,3 +43,7 @@
         </div>
     </body>
 </html>
+
+<?php
+include "formulario.html"
+?>
