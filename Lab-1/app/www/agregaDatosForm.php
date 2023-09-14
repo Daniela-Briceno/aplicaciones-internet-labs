@@ -14,15 +14,16 @@ $apellido = $_POST["apellido"];
 // Inserta los datos en la db
 $sql = "INSERT INTO Person (name, apellido) VALUES ('$nombre', '$apellido')";
 
-if ($mysqli->query($sql) === TRUE) {
-    //echo "Registro exitoso";
+/*if ($mysqli->query($sql) === TRUE) {
+    echo "Registro exitoso";
 } else {
     echo "Error al registrar los datos: " . $mysqli->error;
-}
+}*/
 
 // Cierra la conexión a la db
 $mysqli->close();
 ?>
+
 <script>
 window.location.href="index.php"
 </script>
