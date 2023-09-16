@@ -1,9 +1,41 @@
 version: '3'
 services:
+  db2:
+    image: mysql
+    ports: 
+        - "3307:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+        MYSQL_DATABASE: dbname
+        MYSQL_PASSWORD: test
+        MYSQL_ROOT_PASSWORD: test 
+    volumes:
+        - ./dump:/docker-entrypoint-initdb.d
+        - ./conf:/etc/mysql/conf.d
+        - persistent:/var/lib/mysql
+    networks:
+        - default
+
   nginx:
     image: nginx:latest
     container_name: lab2
     ports:
       - "8080:80"
+    links:
+        - db2:db
     volumes:
       - ./www:/usr/share/nginx/html:ro
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links: 
+        - db2
+    ports:
+        - 8081:80
+    environment:
+        MYSQL_USER: root
+        MYSQL_PASSWORD: test
+        MYSQL_ROOT_PASSWORD: test 
+
+volumes:
+    persistent:
