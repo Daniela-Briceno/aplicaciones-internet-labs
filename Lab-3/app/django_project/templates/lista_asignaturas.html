@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Asignaturas</title>
+</head>
+<body>
+    <h1>Lista de Asignaturas</h1>
+    <ul>
+        {% for asignatura in asignaturas %}
+            <li>
+                {{ asignatura.nombre }} ({{ asignatura.codigo }})
+                <a href="{% url 'agregar_alumno' asignatura.id %}">Agregar Alumnos</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

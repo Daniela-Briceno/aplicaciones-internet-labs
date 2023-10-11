@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agregar Alumno</title>
+</head>
+<body>
+    <h1>Agregar Alumno a {{ asignatura.nombre }}</h1>
+
+    <!-- Form to add a new student to the subject -->
+    <form method="post">
+        {% csrf_token %}
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required><br>
+        
+        <label for="apellido_paterno">Apellido Paterno:</label>
+        <input type="text" id="apellido_paterno" name="apellido_paterno" required><br>
+        
+        <label for="apellido_materno">Apellido Materno:</label>
+        <input type="text" id="apellido_materno" name="apellido_materno" required><br>
+        
+        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br>
+
+        <input type="submit" value="Agregar Alumno">
+    </form>
+
+    <!-- Display the name of the asignatura -->
+    <p>Nombre de la asignatura: {{ asignatura.nombre }}</p>
+</body>
+</html>
