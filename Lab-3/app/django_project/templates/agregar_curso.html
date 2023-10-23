@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Aplicaciones de Internet</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css" />
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <img src="{% static 'images/userena.svg' %}" class="rounded" style="width:200px"/>
+            <div class="d-flex justify-content-between align-items-end mb-3">
+                <div class="text-left">
+                    <h1>Aplicaciones de Internet</h1>
+                    <h3>Asignaturas</h3>
+                </div>
+                <a href="{% url 'agregar_curso' %}">
+                    <button class="btn btn-primary">Agregar nueva asignatura</button>
+                </a>
+            </div>
+            <h2>Agregar Nuevo Curso</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.nombre.label_tag }}
+                    {{ form.nombre }}
+                </div>
+                <div class="mb-3">
+                    {{ form.alumnos.label_tag }}
+                    {{ form.alumnos }}
+                </div>
+                <div class="mb-3">
+                    {{ form.codigo.label_tag }}
+                    {{ form.codigo }}
+                </div>
+                <button type="submit" class="btn btn-success">Guardar Curso</button>
+            </form>
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Alumnos</th>
+                        <th scope="col">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>App internet</td>
+                        <td>10</td>
+                        <td>
+                            <button class="btn btn-secondary">Modificar</button>
+                            <button class="btn btn-danger">Eliminar</button>
+                        </td>
+                    </tr>
+                    {% for curso in cursos %}
+                    <tr>
+                        <td>{{ curso.nombre }}</td>
+                        <td>{{ curso.alumnos }}</td>
+                        <td>
+                            <a href="{% url 'modificar_curso' curso.id %}" class="btn btn-warning">Modificar</a>
+                            <a href="{% url 'eliminar_curso' curso.id %}" class="btn btn-danger">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

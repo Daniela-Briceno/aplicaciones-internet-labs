@@ -4,58 +4,99 @@
 <head>
     <title>Aplicaciones de Internet</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href='{% static "css/bootstrap.min.css" %}' type="text/css" />
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>     
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css" />
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <style>
-        h1 { margin-bottom: 20px; }
-        h2 { font-size: 25px; margin-bottom: 10px; }
-        h3 { font-size: 20px; margin-bottom: 10px; }
+        .smaller-text {
+            font-size: 1.2rem;
+        }
+        .smaller-image {
+            max-width: 150px;
+        }
+        .add-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container py-5">
         <div class="row">
-            <img src="{% static 'images/userena.svg' %}" class="rounded" style="width:200px"/>
-            <h1>Aplicaciones de Internet</h1>
-            <h2>Asignaturas</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <td><h3>Nombre</h3></td>
-                        <td><h3>Código</h3></td>
-                        <td><h3>Acción</h3></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        {% for course in courses %}                   
-                            <td>{{ course.name }}</td>
-                            <td>{{ course.code }}</td>
-                            <td><!-- Acciones para cada asignatura --></td>
-                        {% endfor %}
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="container">
-            <a href="{% url 'crear_asignatura' %}" class="btn btn-primary" id="crearAsignaturaBtn">Crear Nueva Asignatura</a>
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary" id="submitButton" style="display: none;">Guardar</button>
-            </form>
+            <div class="col-md-4">
+                <img src="{% static 'images/userena.svg' %}" class="img-fluid mb-4 smaller-image" alt="Logo">
+                <h1 class="display-4 mb-4 smaller-text">Aplicaciones de Internet</h1>
+                <div>
+                    <h2 class="h4 mb-4">Agregar Nuevo Curso</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ formCurso.as_p }}
+                        <button type="submit" name="submit_curso" class="btn btn-primary">Guardar Curso</button>
+                    </form>
+                </div>
+                <div>
+                    <h2 class="h4 mb-4">Agregar Nuevo Alumno</h2>
+                    <form method="post" class="mb-4">
+                        {% csrf_token %}
+                        {{ formAlumno.as_p }}
+                        <button type="submit" name="submit_alumno" class="btn btn-primary">Guardar Alumno</button>
+                      </form>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div>
+                    <h2 class="h4 mb-4">Asignaturas</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Alumnos</th>
+                                <th scope="col">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for curso in cursos %}
+                            <tr>
+                                <td>{{ curso.nombre }}</td>
+                                <td>{{ curso.alumnos.count }}</td>
+                                <td>
+                                    <!--<a href="{% url 'modificar_curso' curso.id %}" class="btn btn-warning btn-sm">Modificar</a>-->
+                                    <a href="{% url 'eliminar_curso' curso.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <h2 class="h4 mb-4">Alumnos</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido Paterno</th>
+                                <th scope="col">Apellido Materno</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for alumno in alumnos %}
+                            <tr>
+                                <td>{{ alumno.nombre }}</td>
+                                <td>{{ alumno.apellido_paterno }}</td>
+                                <td>{{ alumno.apellido_materno }}</td>
+                                <td>
+                                    <!--<a href="{% url 'modificar_alumno' alumno.id %}" class="btn btn-warning btn-sm">Modificar</a>-->
+                                    <a href="{% url 'eliminar_alumno' alumno.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>                    
+                </div>
+            </div>
         </div>
     </div>
-
-    <script>
-        document.getElementById('crearAsignaturaBtn').addEventListener('click', function() {
-            var submitButton = document.getElementById('submitButton');
-            if (submitButton.style.display === 'none' || submitButton.style.display === '') {
-                submitButton.style.display = 'block';
-            } else {
-                submitButton.style.display = 'none';
-            }
-        });
-    </script>
 </body>
 </html>

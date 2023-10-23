@@ -1,21 +1,17 @@
 from django import forms
-from .models import Asignatura, Alumno
+from .models import Curso, Alumno
 
-class AsignaturaForm(forms.ModelForm):
+class CursoForm(forms.ModelForm):
     class Meta:
-        model = Asignatura
-        fields = ['nombre', 'codigo']
+        model = Curso
+        fields = ['nombre', 'codigo']  # Los campos que deseas incluir en el formulario
 
 class AlumnoForm(forms.ModelForm):
     class Meta:
         model = Alumno
-        fields = ['nombre', 'apellido_paterno', 'apellido_materno', 'fecha_nacimiento']
+        fields = ['nombre', 'apellido_paterno', 'apellido_materno', 'fecha_nacimiento', 'cursos']  # Los campos que deseas incluir en el formulario
+        widgets = {
+            'fecha_nacimiento': forms.DateInput(attrs={'type': 'date'}),
+        }
 
-"""
-Formularios para a crear instancias de Asignatura y Alumno 
-utilizando el formulario HTML correspondiente y
- manejarán la validación y el procesamiento de datos para estos modelos. 
- Por ejemplo, al crear un nuevo Alumno, 
- puedes utilizar AlumnoForm para proporcionar una interfaz de usuario y 
- validar los datos antes de guardarlo en la base de datos.
-"""
+        
