@@ -5,49 +5,78 @@
     <title>Aplicaciones de Internet</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css" />
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css">
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <style>
-        .smaller-text {
-            font-size: 1.2rem;
+        body { background-color: #f8f9fa; }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
         }
-        .smaller-image {
-            max-width: 150px;
+
+        .logo { text-align: left; }
+        .logo img { max-width: 250px; }
+
+        .page-title { text-align: center;  font-size: 40px; font-weight: bold; }
+
+        .add-form {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 2px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
         }
+
         .add-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
+            text-align: left;
+            margin-top: 10px;
+        }
+        .table-container { margin-top: 10px;}
+
+        .small-form .form-group {
+            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
     <div class="container py-5">
+        <div class="logo">
+            <img src="{% static 'images/userena.svg' %}" class="img-fluid" alt="Logo">
+        </div>
+        <h1 class="display-4 page-title">Aplicaciones de Internet</h1>
         <div class="row">
-            <div class="col-md-4">
-                <img src="{% static 'images/userena.svg' %}" class="img-fluid mb-4 smaller-image" alt="Logo">
-                <h1 class="display-4 mb-4 smaller-text">Aplicaciones de Internet</h1>
-                <div>
-                    <h2 class="h4 mb-4">Agregar Nuevo Curso</h2>
+            <div class="col-md-6">
+                <div class="add-form small-form">
+                    <h2 class="h4">Agregar Nuevo Curso</h2>
                     <form method="post">
                         {% csrf_token %}
                         {{ formCurso.as_p }}
-                        <button type="submit" name="submit_curso" class="btn btn-primary">Guardar Curso</button>
+                        <div class="add-button">
+                            <button type="submit" name="submit_curso" class="btn btn-primary">Guardar Curso</button>
+                        </div>
                     </form>
                 </div>
-                <div>
-                    <h2 class="h4 mb-4">Agregar Nuevo Alumno</h2>
-                    <form method="post" class="mb-4">
+            </div>
+            <div class="col-md-6">
+                <div class="add-form small-form">
+                    <h2 class="h4">Agregar Nuevo Alumno</h2>
+                    <form method="post">
                         {% csrf_token %}
                         {{ formAlumno.as_p }}
-                        <button type="submit" name="submit_alumno" class="btn btn-primary">Guardar Alumno</button>
-                      </form>
+                        <div class="add-button">
+                            <button type="submit" name="submit_alumno" class="btn btn-primary">Guardar Alumno</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="col-md-8">
-                <div>
-                    <h2 class="h4 mb-4">Asignaturas</h2>
+        </div>
+        <div class="table-container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="h4">Asignaturas</h2>
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -62,7 +91,6 @@
                                 <td>{{ curso.nombre }}</td>
                                 <td>{{ curso.alumnos.count }}</td>
                                 <td>
-                                    <!--<a href="{% url 'modificar_curso' curso.id %}" class="btn btn-warning btn-sm">Modificar</a>-->
                                     <a href="{% url 'eliminar_curso' curso.id %}" class="btn btn-danger btn-sm">Eliminar</a>
                                 </td>
                             </tr>
@@ -70,14 +98,15 @@
                         </tbody>
                     </table>
                 </div>
-                <div>
-                    <h2 class="h4 mb-4">Alumnos</h2>
+                <div class="col-md-6">
+                    <h2 class="h4">Alumnos</h2>
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Apellido Paterno</th>
                                 <th scope="col">Apellido Materno</th>
+                                <th scope="col">Acción</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -87,13 +116,12 @@
                                 <td>{{ alumno.apellido_paterno }}</td>
                                 <td>{{ alumno.apellido_materno }}</td>
                                 <td>
-                                    <!--<a href="{% url 'modificar_alumno' alumno.id %}" class="btn btn-warning btn-sm">Modificar</a>-->
                                     <a href="{% url 'eliminar_alumno' alumno.id %}" class="btn btn-danger btn-sm">Eliminar</a>
                                 </td>
                             </tr>
                             {% endfor %}
                         </tbody>
-                    </table>                    
+                    </table>
                 </div>
             </div>
         </div>
