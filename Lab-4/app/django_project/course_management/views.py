@@ -24,7 +24,7 @@ def lista_movies(request):
         }
         peliculas.append(pelicula_procesada)
     print(peliculas[0])
-    return render(request, 'lista_movies.html', {'movies': peliculas})
+    return render(request, 'index.html', {'movies': peliculas})
     
 def getMovies():
     url = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1"
