@@ -12,24 +12,11 @@
         <div class="row">
             <img src="{% static 'images/userena.svg' %}" class="rounded" style="width:200px"/>
             <h1>Aplicaciones de Internet</h1>
-            <h3>Asignaturas</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <td>Nombre</td>
-                        <td>Código</td>
-                        <td>Acción</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    {% for course in courses %}                   
-                        <td>{{ course.name }}</td>
-                        <td>{{ course.code }}</td>
-                    {% endfor %}
-                    </tr>
-                </tbody>
-            </table>
+            <h3>Movies</h3>
+            <div class="container">
+                {% block content %}
+                {% endblock %}
+            </div>
         </div>
     </div>
 </body>

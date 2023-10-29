@@ -1,8 +1,7 @@
 from django.contrib import admin
-from .models import Course, Student
+from .models import Movie
 
-class StudentAdmin(admin.ModelAdmin):
-    list_display = ('name','last_name', 'first_name', 'birth_date')
+class MoviesAdmin(admin.ModelAdmin):
+    list_display = ('titulo','resumen', 'fecha', 'imagen', 'genero', 'calificacion')
 
-admin.site.register(Course)
-admin.site.register(Student, StudentAdmin)
+admin.site.register(Movie, MoviesAdmin)
