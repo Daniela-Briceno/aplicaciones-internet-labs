@@ -18,10 +18,13 @@
             <h1>Aplicaciones de Internet</h1>
             <h3>Movies</h3>
             <form action="">
-                <select name="genres" id="genres" >
-                        <option value=""></option>
+                <select name="genres" id="genres">
+                    {% for genero in generos %}
+                    <option value="{{genero.identificacion}}">{{genero.genero}}</option>
+                    {% endfor %}
                 </select>
             </form>
+            
             <table class="table table-striped">
                 <thead class="thead-dark">
                     <tr>
