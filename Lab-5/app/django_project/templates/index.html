@@ -9,37 +9,63 @@
         <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
         <script type="text/javascript"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <style>
+            body { background-color: #2b2727; }
+            .container { max-width: 1000px; margin: 10px auto; padding: 20px; background-color: #fbf8f8; }
+    
+            h1 { color: #333; }
+            h3 { color: #666; }
+    
+            label { font-weight: bold;}
+            select { border: 1px solid #0e0d0d; }
+    
+            /*.table { width: 100%; border-collapse: collapse; margin-top: 20px;}
+            .table th, .table td { padding: 10px; text-align: left; }
+            .table thead { background-color: #333; color: #fff;}
+            .table tbody tr:nth-child(odd) { background-color: #f2f2f2; }
+            .table img { max-width: 100px; height: auto; }
+            .table a { text-decoration: none; color: #007bff;}
+            .table a:hover { text-decoration: underline; }*/
+        </style>
     </head>
 <body>
     <div class="container">
         <div class="row">
             <img src="{% static 'images/userena.svg' %}" class="rounded" style="width:200px"/>
             <h1>Aplicaciones de Internet</h1>
-            <h3>Movies</h3>
+            <h3>Peliculas</h3>
             <form action="">
+                <label for="genres">Seleccione un género:</label>
                 <select name="genres" id="genres">
+                    <option value="">Todos los géneros</option>
                     {% for genero in generos %}
                     <option value="{{genero.identificacion}}">{{genero.genero}}</option>
                     {% endfor %}
                 </select>
+                <input type="submit" value="Filtrar">
             </form>
             
             <table class="table table-striped">
                 <thead class="thead-dark">
                     <tr>
-                        <td>Nombre</td>
-                        <td>Descripción</td>
-                        <td>Imagen</td>
-                        <td>detalles</td>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Imagen</th>
+                        <th>detalles</th>
                     </tr>
                 </thead>
                 <tbody>
-                        <tr>                   
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                    {% for pelicula in movies %}
+                        <tr>
+                            <td>{{ pelicula.nombre }}</td>
+                            <td>{{ pelicula.resumen }}</td>
+                            <td>
+                               <img src="{{ pelicula.imagen }}" alt="{{ pelicula.nombre }}" height="120px" width="auto">
+                            </td>
+                            <td>
+                            </td>
                         </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
