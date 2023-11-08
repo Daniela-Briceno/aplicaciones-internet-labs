@@ -34,16 +34,18 @@
             <img src="{% static 'images/userena.svg' %}" class="rounded" style="width:200px"/>
             <h1>Aplicaciones de Internet</h1>
             <h3>Peliculas</h3>
-            <form action="">
+            <form method="post" action="{% url 'index' %}">
+                {% csrf_token %}
                 <label for="genres">Seleccione un género:</label>
-                <select name="genres" id="genres">
+                <select name="genero" id="genres">
                     <option value="">Todos los géneros</option>
                     {% for genero in generos %}
-                    <option value="{{genero.identificacion}}">{{genero.genero}}</option>
+                    <option value="{{ genero.genero }}">{{ genero.genero }}</option>
                     {% endfor %}
                 </select>
                 <input type="submit" value="Filtrar">
             </form>
+            
             
             <table class="table table-striped">
                 <thead class="thead-dark">
@@ -60,7 +62,7 @@
                             <td>{{ pelicula.nombre }}</td>
                             <td>{{ pelicula.resumen }}</td>
                             <td>
-                               <img src="{{ pelicula.imagen }}" alt="{{ pelicula.nombre }}" height="120px" width="auto">
+                               <img src="{{ pelicula.imagen }}" alt="{{ pelicula.nombre }}" height="137px" width="100px">
                             </td>
                             <td>
                             </td>
